@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <system>
+        <section id="indexiz_guest_to_customer" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+            <label>Guest To Customer</label>
+            <tab>indexiz</tab>
+            <resource>Indexiz_GuestToCustomer::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_order_convert" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto Assign Orders With Same Customer Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="indexiz_guest_to_customer/general/enabled">1</field>
+                    </depends>
+                    <comment>Enabling this setting will convert the guest orders to customer orders automatically when the guest is converted to customer.</comment>
+                </field>
+                <field id="send_email" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Welcome Email to Customer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="indexiz_guest_to_customer/general/enabled">1</field>
+                    </depends>
+                    <comment>Enabling this setting will send welcome email to customer when he is converted from guest to customer.</comment>
+                </field>
+                <field id="default_group_zero" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Customer Group (Orders With Zero Amount)</label>
+                    <source_model>Magento\Customer\Model\Config\Source\Group</source_model>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="indexiz_guest_to_customer/general/enabled">1</field>
+                    </depends>
+                    <comment>Select default customer group which should be assigned to customers converted from guests. When order subtotal is zero.</comment>
+                </field>
+                <field id="default_group" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Customer Group (Orders With Greater Than Zero Amount)</label>
+                    <source_model>Magento\Customer\Model\Config\Source\Group</source_model>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="indexiz_guest_to_customer/general/enabled">1</field>
+                    </depends>
+                    <comment>Select default customer group which should be assigned to customers converted from guests. When order subtotal is greater than zero.</comment>
+                </field>
+            </group>
+            <group id="schedule" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>CRON Settings</label>
+                <field id="cron_expr" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Guest to Customer (CRON Statement)</label>
+                    <comment>Set a time per day like "1 0 * * *", to convert guests into customers starts at 12:01 am.</comment>
+                </field>
+                <field id="batch_size" translate="label" type="text" sortOrder="126" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Batch Size</label>
+                    <validate>validate-greater-than-zero validate-number</validate>
+                    <comment>Number of guests to convert into customers in each batch.</comment>
+                </field>
+                <depends>
+                    <field id="indexiz_guest_to_customer/general/enabled">1</field>
+                </depends>
+            </group>
+        </section>
+    </system>
+</config>
