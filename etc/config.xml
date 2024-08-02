@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <default>
+        <indexiz_guest_to_customer>
+            <general>
+                <enabled>0</enabled>
+                <auto_order_convert>0</auto_order_convert>
+                <default_group>1</default_group>
+                <send_email>0</send_email>
+            </general>
+            <schedule>
+                <cron_expr>1 2 * * *</cron_expr>
+                <batch_size>50</batch_size>
+            </schedule>
+        </indexiz_guest_to_customer>
+    </default>
+</config>
